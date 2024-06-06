@@ -1,16 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:pac/controller/dashboard_controller.dart';
-import 'package:pac/theme/background.dart';
-import 'package:pac/view/category/category_screen.dart';
-import 'package:pac/view/home/home_screen.dart';
-import 'package:pac/view/product/product_screen.dart';
-
-import '../account/account_screen.dart';
+import 'package:pac/controller/control.dart';
+import 'package:pac/view/view.dart';
 
 class DashboardScreen extends StatelessWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +16,15 @@ class DashboardScreen extends StatelessWidget {
         body: SafeArea(
           bottom: false,
           child: Stack(children: [
-            const Background(),
+            // const Background(),
             IndexedStack(
               index: controller.tabIndex,
               children: const [
                 HomeScreen(),
+                //Votaciones(),
                 ProductScreen(),
                 CategoryScreen(),
-                AccountScreen()
+                // AccountScreen()
               ],
             ),
           ]),
@@ -45,8 +42,9 @@ class DashboardScreen extends StatelessWidget {
             shadowColor: const Color.fromRGBO(0, 56, 194, 1),
             behaviour: SnakeBarBehaviour.floating,
             snakeShape: SnakeShape.indicator,
-            unselectedLabelStyle: const TextStyle(fontSize: 11),
-            snakeViewColor: Theme.of(context).primaryColor,
+            unselectedLabelStyle: const TextStyle(fontSize: 9),
+            selectedLabelStyle: const TextStyle(fontSize: 9),
+            snakeViewColor: Colors.red,
             unselectedItemColor: Colors.white,
             showUnselectedLabels: true,
             showSelectedLabels: true,
@@ -56,13 +54,12 @@ class DashboardScreen extends StatelessWidget {
               controller.updateIndex(val);
             },
             items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.category), label: 'Descuentos'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.menu), label: 'Categorías'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.account_circle), label: 'Mi cuenta')
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.house), label: 'Inicio'),
+              //BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.checkToSlot), label: 'Votaciones'),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.tags), label: 'Descuentos'),
+              BottomNavigationBarItem(icon: FaIcon(FontAwesomeIcons.tableList), label: 'Categorías'),
+              // BottomNavigationBarItem(
+              //     icon: FaIcon(FontAwesomeIcons.circleUser), label: 'Mi cuenta')
             ],
           ),
         ),

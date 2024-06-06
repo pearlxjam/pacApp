@@ -19,7 +19,7 @@ class InputTextField extends StatefulWidget {
   final double? height;
 
   const InputTextField(
-      {Key? key,
+      {super.key,
       this.width,
       this.height,
       this.validation,
@@ -34,8 +34,7 @@ class InputTextField extends StatefulWidget {
       this.obsecureText = false,
       this.textAlign = TextAlign.left,
       this.onEditComplete,
-      this.textInputAction = TextInputAction.next})
-      : super(key: key);
+      this.textInputAction = TextInputAction.next});
 
   @override
   State<InputTextField> createState() => _InputTextFieldState();

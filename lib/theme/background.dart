@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Background extends StatelessWidget {
-  const Background({Key? key}) : super(key: key);
+  const Background({super.key});
   final boxDecoration = const BoxDecoration(
     gradient: LinearGradient(
       begin: Alignment.topCenter,

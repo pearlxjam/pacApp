@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
-
-import '../../model/category.dart';
+import 'package:pac/model/modelos.dart';
 
 class LocalCategoryService {
   late Box<Category> _popularCategoryBox;
@@ -11,8 +10,7 @@ class LocalCategoryService {
     _categoryBox = await Hive.openBox<Category>('categories');
   }
 
-  Future<void> assignAllPopularCategories(
-      {required List<Category> popularCategories}) async {
+  Future<void> assignAllPopularCategories({required List<Category> popularCategories}) async {
     await _popularCategoryBox.clear();
     await _popularCategoryBox.addAll(popularCategories);
   }

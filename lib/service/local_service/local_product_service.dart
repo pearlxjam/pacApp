@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
-
-import '../../model/product.dart';
+import 'package:pac/model/modelos.dart';
 
 class LocalProductService {
   late Box<Product> _popularProductBox;
@@ -9,8 +8,7 @@ class LocalProductService {
     _popularProductBox = await Hive.openBox<Product>('PopularProducts');
   }
 
-  Future<void> assignAllPopularProducts(
-      {required List<Product> popularProducts}) async {
+  Future<void> assignAllPopularProducts({required List<Product> popularProducts}) async {
     await _popularProductBox.clear();
     await _popularProductBox.addAll(popularProducts);
   }

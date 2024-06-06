@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PopularCategoryLoadingCard extends StatelessWidget {
-  const PopularCategoryLoadingCard({Key? key}) : super(key: key);
+  const PopularCategoryLoadingCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +19,9 @@ class PopularCategoryLoadingCard extends StatelessWidget {
             width: 270,
             height: 140,
             decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(10)),
+              color: Colors.grey.shade300,
+              borderRadius: BorderRadius.circular(10),
+            ),
           ),
         ),
       ),

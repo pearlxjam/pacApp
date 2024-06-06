@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:pac/model/ad_banner.dart';
-import 'package:pac/model/category.dart';
-import 'package:pac/model/product.dart';
-import 'package:pac/model/user.dart';
+import 'package:pac/const/geo.dart';
+import 'package:pac/model/modelos.dart';
 import 'package:pac/route/app_page.dart';
 import 'package:pac/route/app_route.dart';
 import 'package:pac/theme/app_theme.dart';
@@ -19,17 +19,21 @@ void main() async {
   Hive.registerAdapter(CategoryAdapter());
   Hive.registerAdapter(ProductAdapter());
   Hive.registerAdapter(UserAdapter());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   configLoading();
+  checkPermisos();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      localizationsDelegates: GlobalMaterialLocalizations.delegates,
+      supportedLocales: const [Locale('es', '')],
       getPages: AppPage.list,
       initialRoute: AppRoute.dashboard,
       debugShowCheckedModeBanner: false,

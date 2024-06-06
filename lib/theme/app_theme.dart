@@ -19,7 +19,7 @@ class AppTheme {
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: lightBackgroundColor)),
       colorScheme: ColorScheme.light(secondary: lightSecondaryColor)
-          .copyWith(background: lightBackgroundColor));
+          .copyWith(surface: lightBackgroundColor));
 
   // static Brightness get currentSystemBrightness => configuration.platformBrightness;
   // SchedulerBinding.instance.window.platformBrightness;

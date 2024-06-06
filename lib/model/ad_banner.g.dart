@@ -19,17 +19,20 @@ class AdBannerAdapter extends TypeAdapter<AdBanner> {
     return AdBanner(
       id: fields[0] as int,
       image: fields[1] as String,
+      url: fields[2] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, AdBanner obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.image);
+      ..write(obj.image)
+      ..writeByte(2)
+      ..write(obj.url);
   }
 
   @override

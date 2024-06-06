@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pac/component/main_header.dart';
 import 'package:pac/controller/controllers.dart';
-import 'package:pac/view/product/components/product_grid.dart';
-import 'package:pac/view/product/components/product_loading_grid.dart';
+import 'package:pac/view/view.dart';
 
 class ProductScreen extends StatelessWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  const ProductScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +31,7 @@ class ProductScreen extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Text('Prodcuto no encontrado')
+                        const Text('Producto no encontrado')
                       ],
                     );
                   }

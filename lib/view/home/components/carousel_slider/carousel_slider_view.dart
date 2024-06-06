@@ -1,12 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:pac/model/ad_banner.dart';
-import 'package:pac/view/home/components/carousel_slider/banner_card.dart';
+import 'package:pac/model/modelos.dart';
+import 'package:pac/view/view.dart';
 
 class CarouselSliderView extends StatefulWidget {
   final List<AdBanner> bannerList;
-  const CarouselSliderView({Key? key, required this.bannerList})
-      : super(key: key);
+  const CarouselSliderView({super.key, required this.bannerList});
 
   @override
   State<CarouselSliderView> createState() => _CarouselSliderViewState();
@@ -17,8 +16,7 @@ class _CarouselSliderViewState extends State<CarouselSliderView> {
   late List<Widget> _bannerList;
   @override
   void initState() {
-    _bannerList =
-        widget.bannerList.map((e) => BannerCard(imageUrl: e.image)).toList();
+    _bannerList = widget.bannerList.map((e) => BannerCard(imageUrl: e.image, url: e.url)).toList();
     super.initState();
   }
 
@@ -52,9 +50,7 @@ class _CarouselSliderViewState extends State<CarouselSliderView> {
               ),
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: _currentIndex == index
-                    ? const Color.fromRGBO(0, 0, 0, 0.9)
-                    : const Color.fromRGBO(0, 0, 0, 0.4),
+                color: _currentIndex == index ? const Color.fromRGBO(0, 0, 0, 0.9) : const Color.fromRGBO(0, 0, 0, 0.4),
               ),
             );
           }).toList(),

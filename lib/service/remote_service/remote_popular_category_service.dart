@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
-import 'package:pac/const/const.dart';
 
 class RemotePopularCategoryService {
   var client = http.Client();
-  var remoteUrl = '$baseUrl/api/popular-categories';
+  // var remoteUrl = '$baseUrl/api/popular-categories';
+  var remoteUrl = 'https://www.tarjetavecinopac.com/api/categorias.php';
 
   Future<dynamic> get() async {
     var response = await client.get(Uri.parse(

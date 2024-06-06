@@ -1,0 +1,1 @@
+ /Users/gaspar/Proyectos/pacApp/.dart_tool/flutter_build/7f8f131d382511e3aaa964930ef1cd87/native_assets.yaml: 

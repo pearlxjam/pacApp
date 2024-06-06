@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pac/const/const.dart';
+import 'package:pac/const/footer.dart';
 import 'package:pac/controller/controllers.dart';
-
-import 'auth/sign_in_screen.dart';
+import 'package:pac/view/view.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({Key? key}) : super(key: key);
+  const AccountScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,24 +17,26 @@ class AccountScreen extends StatelessWidget {
         children: [
           const SizedBox(height: 20),
           Obx(
-            () => Row(
+            () => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const CircleAvatar(
-                  backgroundColor: Colors.grey,
-                  radius: 36,
-                  child: CircleAvatar(
-                    radius: 35,
-                    backgroundImage: AssetImage("assets/user_image.png"),
-                  ),
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.white,
+                      radius: 70,
+                      backgroundImage: AssetImage("assets/logo_sin_fondo.png"),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 10),
-                Column(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      authController.user.value?.fullName ??
-                          "Sign in your account",
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w500),
+                      authController.user.value?.fullName ?? "Ingresa a tu cuenta",
+                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: verde),
                     )
                   ],
                 )
@@ -41,36 +44,159 @@ class AccountScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 50),
+          Obx(
+            () => authController.user.value == null
+                ? const SizedBox() // No muestra nada si authController.user.value es nulo
+                : buildAccountCard(
+                    title: "Información",
+                    onClick: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const InformacionPersonal(),
+                        ),
+                      );
+                    }),
+          ),
+          Obx(
+            () => authController.user.value == null
+                ? const SizedBox() // No muestra nada si authController.user.value es nulo
+                : buildAccountCard(
+                    title: "Mis Descuentos",
+                    onClick: () {
+                      if (authController.user.value == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignInScreen(),
+                          ),
+                        );
+                      } else {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => const MisDescuentos()));
+                      }
+                    }),
+          ),
           buildAccountCard(
-              title: "Información",
+              title: "Términos y condiciones",
               onClick: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SignInScreen()));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const TerminosYCondiciones(),
+                  ),
+                );
               }),
-          buildAccountCard(title: "Cambiar Contraseñas", onClick: () {}),
-          buildAccountCard(title: "Mis Descuentos", onClick: () {}),
-          buildAccountCard(title: "Términos y condiciones", onClick: () {}),
-          Obx(() => buildAccountCard(
-              title: authController.user.value == null ? "Ingresar" : "Salir",
+          buildAccountCard(
+              title: "Instructivo",
               onClick: () {
-                if (authController.user.value != null) {
-                  authController.signOut();
-                } else {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SignInScreen()));
-                }
-              }))
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const Instructivo(),
+                  ),
+                );
+              }),
+          Obx(
+            () => authController.user.value == null
+                ? const SizedBox() // No muestra nada si authController.user.value es nulo
+                : buildAccountCard(
+                    title: "Cambiar Contraseña",
+                    onClick: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ChangePassScreen()));
+                    }),
+          ),
+          Obx(
+            () => authController.user.value != null
+                ? const SizedBox() // No muestra nada si authController.user.value es nulo
+                : buildAccountCard(
+                    title: "Registro",
+                    onClick: () {
+                      if (authController.user.value == null) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const SignUpScreen(),
+                          ),
+                        );
+                      } else {}
+                    }),
+          ),
+          // Obx(
+          //   () {
+          //     final user = authController.user.value;
+          //     if (user == null) {
+          //       return buildAccountCard(
+          //         title: "Activar código",
+          //         onClick: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => const ActivationCodeScreen(),
+          //             ),
+          //           );
+          //         },
+          //       );
+          //     } else {
+          //       return const SizedBox(); // No muestra nada si no cumple con las condiciones
+          //     }
+          //   },
+          // ),
+          // Obx(
+          //   () {
+          //     final user = authController.user.value;
+          //     if (user != null && user.estado == 4) {
+          //       return buildAccountCard(
+          //         title: "Verificar dirección",
+          //         onClick: () {
+          //           Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => const VerificaDireccion(),
+          //             ),
+          //           );
+          //         },
+          //       );
+          //     } else {
+          //       return const SizedBox(); // No muestra nada si no cumple con las condiciones
+          //     }
+          //   },
+          // ),
+          Obx(
+            () => buildAccountCard(
+                title: authController.user.value == null ? "Ingresar" : "Salir",
+                onClick: () {
+                  if (authController.user.value != null) {
+                    authController.signOut();
+                  } else {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignInScreen()));
+                  }
+                }),
+          ),
+          Obx(
+            () {
+              final user = authController.user.value;
+              if (user != null) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.14,
+                );
+              } else {
+                return SizedBox(height: MediaQuery.of(context).size.height * 0.23); // No muestra nada si no cumple con las condiciones
+              }
+            },
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.225,
+            child: const Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: Footer(),
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget buildAccountCard(
-      {required String title, required Function() onClick}) {
+  Widget buildAccountCard({required String title, required Function() onClick}) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 14),
       child: GestureDetector(
@@ -80,23 +206,19 @@ class AccountScreen extends StatelessWidget {
         child: Container(
           height: 60,
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: const BorderRadius.all(Radius.circular(12)),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.4),
-                  spreadRadius: 0.1,
-                  blurRadius: 7,
-                )
-              ]),
+          decoration: BoxDecoration(color: amarillo, borderRadius: const BorderRadius.all(Radius.circular(12)), boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.4),
+              spreadRadius: 0.1,
+              blurRadius: 7,
+            )
+          ]),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 title,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
+                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
               ),
               const Icon(Icons.keyboard_arrow_right_outlined)
             ],

@@ -1,11 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:pac/controller/controllers.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
   final int seccion;
-  const SectionTitle({Key? key, required this.title, required this.seccion})
-      : super(key: key);
+  const SectionTitle({super.key, required this.title, required this.seccion});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +14,11 @@ class SectionTitle extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          AutoSizeText(
             title,
-            style: const TextStyle(fontSize: 18, color: Colors.black),
+            style: const TextStyle(
+                fontSize: 15, color: Colors.black, fontWeight: FontWeight.bold),
+            maxFontSize: 15,
           ),
           InkWell(
             onTap: () {

@@ -1,5 +1,5 @@
 import 'package:hive/hive.dart';
-import 'package:pac/model/ad_banner.dart';
+import 'package:pac/model/modelos.dart';
 
 class LocalAdBannerService {
   late Box<AdBanner> _adBannerBox;

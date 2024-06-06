@@ -1,6 +1,5 @@
 import 'package:hive/hive.dart';
-
-import '../../model/user.dart';
+import 'package:pac/model/modelos.dart';
 
 class LocalAuthService {
   late Box<String> _tokenBox;

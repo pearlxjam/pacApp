@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:pac/controller/controllers.dart';
-import 'package:pac/extention/string_extension.dart';
+import 'package:pac/view/view.dart';
+import 'package:rut_utils/rut_utils.dart';
 
 import '../../../component/input_outline_button.dart';
 import '../../../component/input_text_button.dart';
 import '../../../component/input_text_field.dart';
-import 'sign_up_screen.dart';
 
 class SignInScreen extends StatefulWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({super.key});
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -16,12 +16,12 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
+  TextEditingController rutController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
   @override
   void dispose() {
-    emailController.dispose();
+    rutController.dispose();
     passwordController.dispose();
     super.dispose();
   }
@@ -41,42 +41,42 @@ class _SignInScreenState extends State<SignInScreen> {
                 const Spacer(),
                 const Text(
                   "Bienvenido/a,",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black, fontSize: 32, fontWeight: FontWeight.bold),
                 ),
                 const Text(
                   "Ingresa tus datos para continuar!",
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1.2),
+                  style: TextStyle(color: Colors.grey, fontSize: 22, fontWeight: FontWeight.w400, letterSpacing: 1.2),
                 ),
                 const Spacer(
                   flex: 3,
                 ),
                 InputTextField(
-                  title: 'Email',
-                  textEditingController: emailController,
+                  hint: "Ingrese su RUT ej.- 12345678-9",
+                  // inputFormatters: [
+                  //   RutFormatter(),
+                  // ],
+                  title: 'Rut ej.- 12345678-9',
+
+                  textEditingController: rutController,
                   validation: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "This field can't be empty";
-                    } else if (!value.isValidEmail) {
-                      return "Please enter valid email";
+                      return "Este campo no puede estar vacío";
+                    } else if (!isRutValid(value)) {
+                      return "El rut ingresado no es válido";
+                    } else if (!value.contains("-")) {
+                      return "El rut debe contener el caracter '-'";
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 10),
                 InputTextField(
-                  title: 'Password',
+                  title: 'Contraseña',
                   obsecureText: true,
                   textEditingController: passwordController,
                   validation: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "This field can't be empty";
+                      return "Este campo no puede estar vacío";
                     }
                     return null;
                   },
@@ -86,9 +86,11 @@ class _SignInScreenState extends State<SignInScreen> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const ResetPassScreen()));
+                      },
                       child: const Text(
-                        "Forgot Password",
+                        "Olvidé mi contraseña",
                         style: TextStyle(fontSize: 12),
                       ),
                     )
@@ -99,9 +101,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   title: "Ingresar",
                   onClick: () {
                     if (_formKey.currentState!.validate()) {
-                      authController.signIn(
-                          email: emailController.text,
-                          password: passwordController.text);
+                      authController.signIn(rut: rutController.text, password: passwordController.text);
                     }
                   },
                 ),
@@ -121,10 +121,7 @@ class _SignInScreenState extends State<SignInScreen> {
                     const Text("Soy nuevo/a, "),
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const SignUpScreen()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
                       },
                       child: const Text(
                         "Registro",

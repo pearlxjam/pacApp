@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ProductLoadingCard extends StatelessWidget {
-  const ProductLoadingCard({Key? key}) : super(key: key);
+  const ProductLoadingCard({super.key});
 
   @override
   Widget build(BuildContext context) {

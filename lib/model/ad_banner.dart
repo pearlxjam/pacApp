@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:hive/hive.dart';
 
 part 'ad_banner.g.dart';
@@ -12,10 +13,11 @@ class AdBanner {
   final int id;
   @HiveField(1)
   final String image;
+  @HiveField(2)
+  final String url;
 
-  AdBanner({required this.id, required this.image});
+  AdBanner({required this.id, required this.image, required this.url});
 
-  factory AdBanner.fromJson(Map<String, dynamic> data) => AdBanner(
-      id: data['id'],
-      image: data['attributes']['image']['data']['attributes']['url']);
+  factory AdBanner.fromJson(Map<String, dynamic> data) =>
+      AdBanner(id: data['id'], image: data['imagen'], url: data['url']);
 }
